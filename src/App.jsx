@@ -151,7 +151,7 @@ const HomeView = () => {
       <Card className="flex p-0 overflow-hidden min-h-[88px]">
         <div className="w-24 bg-emerald-100 flex-shrink-0 relative">
           <img
-            src="../src/imgs/acai3.jpg"
+            src="../public/static/imgs/acai3.jpg"
             alt="Açaí berries"
             className="absolute inset-0 w-full object-cover"
           />
@@ -170,7 +170,7 @@ const HomeView = () => {
       <Card className="flex p-0 overflow-hidden min-h-[88px]">
         <div className="w-24 bg-blue-100 flex-shrink-0 relative">
           <img
-            src="../src/imgs/rio.jpg"
+            src="../public/static/imgs/rio.jpg"
             alt="Meeting"
             className="absolute inset-0 w-full h-full object-cover"
           />
@@ -190,7 +190,7 @@ const HomeView = () => {
       <Card className="flex p-0 overflow-hidden min-h-[88px]">
         <div className="w-24 bg-amber-100 flex-shrink-0 relative">
           <img
-            src="../src/imgs/lei.jpeg"
+            src="../public/static/imgs/lei.jpeg"
             alt="Law and Documents"
             className="absolute inset-0 w-full h-full object-cover"
           />
@@ -211,7 +211,7 @@ const HomeView = () => {
         <Card className="flex p-0 overflow-hidden min-h-[88px]">
           <div className="w-24 bg-orange-100 flex-shrink-0 relative">
             <img
-              src="../src/imgs/rios.jpg"
+              src="../public/static/imgs/rios.jpg"
               alt="River transport"
               className="absolute inset-0 w-full h-full object-cover"
             />
