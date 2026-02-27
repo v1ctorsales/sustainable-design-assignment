@@ -87,7 +87,7 @@ const HomeView = () => {
           {!showChart ? (
             // Default View: Just Price and (per Kg)
             <div className="flex flex-col items-center justify-center animate-in zoom-in-95 duration-300">
-              <h1 className="text-emerald-700 font-black tracking-tighter mb-1">
+              <h1 className="text-4xl text-emerald-700 font-black tracking-tighter mb-1">
                 $4.51
               </h1>
               <p className="text-emerald-700 text-sm font-medium">(per Kg)</p>
@@ -430,7 +430,7 @@ export default function AcaiApp() {
       <div className="w-full max-w-md bg-gray-50 h-screen flex flex-col relative shadow-2xl overflow-hidden">
         {/* Top Header */}
         <header className="bg-emerald-700 text-white p-4 shadow-sm flex items-center justify-between z-10">
-          <h1 className="font-bold text-lg tracking-wide">Açaí Blabla</h1>
+          <h1 className="text-4xl font-bold tracking-wide">Açaí Harvest Hub</h1>
           <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-sm font-bold">
             RC
           </div>
