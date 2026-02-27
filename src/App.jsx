@@ -54,11 +54,11 @@ const HomeView = () => {
 
   // Mock historical data for the chart
   const historicalData = [
-    { day: "Mon", price: 4.17 },
-    { day: "Tue", price: 4.23 },
-    { day: "Wed", price: 4.02 },
-    { day: "Thu", price: 4.3 },
-    { day: "Fri", price: 4.51 },
+    { day: "Nov", price: 4.17 },
+    { day: "Dec", price: 4.23 },
+    { day: "Jan", price: 4.02 },
+    { day: "Feb", price: 4.3 },
+    { day: "Mar", price: 4.51 },
   ];
 
   // Find max price to calculate relative bar heights
@@ -95,30 +95,70 @@ const HomeView = () => {
           ) : (
             // Chart View: Historical Prices
             <div className="flex flex-col h-40 animate-in slide-in-from-bottom-4 fade-in duration-300">
+              <hr className="border-emerald-700/20 w-full mb-3" />
+
               <h3 className="text-emerald-700 font-medium mb-4 text-sm">
-                Price History this Week
+                Price average for the past months
               </h3>
 
-              {/* CSS Bar Chart */}
-              <div className="flex justify-between items-end flex-1 border-b border-emerald-500/50 pb-2 gap-2">
-                {historicalData.map((data, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col items-center flex-1 gap-2 h-full justify-end"
-                  >
-                    <span className="text-[10px] text-emerald-700 font-bold">
-                      ${data.price.toFixed(2)}
-                    </span>
+              <div className="relative flex-1 w-full flex items-end border-b border-emerald-500/50 pb-2">
+                {/* SVG Line Chart Overlay */}
+                <svg
+                  className="absolute inset-0 w-full h-full pb-2 overflow-visible z-10"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="none"
+                >
+                  <polyline
+                    // MUDANÇA AQUI: Trocamos * 100 por * 70 para abaixar a linha no eixo Y
+                    points={historicalData
+                      .map(
+                        (d, i) =>
+                          `${10 + i * 20},${100 - (d.price / maxPrice) * 70}`,
+                      )
+                      .join(" ")}
+                    fill="none"
+                    stroke="#047857" // text-emerald-700
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  {/* Pontos da linha (bolinhas) */}
+                  {historicalData.map((d, i) => (
+                    <circle
+                      key={`point-${i}`}
+                      cx={10 + i * 20}
+                      // MUDANÇA AQUI: Trocamos * 100 por * 70
+                      cy={100 - (d.price / maxPrice) * 70}
+                      r="2.5"
+                      fill="#047857"
+                      className="animate-in zoom-in"
+                      style={{ animationDelay: `${i * 100}ms` }}
+                    />
+                  ))}
+                </svg>
+
+                {/* CSS Bar Chart (Fundo) */}
+                <div className="flex justify-between items-end w-full h-full relative z-0">
+                  {historicalData.map((data, index) => (
                     <div
-                      className="w-full max-w-[28px] bg-white rounded-t-sm animate-in slide-in-from-bottom-2"
-                      style={{ height: `${(data.price / maxPrice) * 100}%` }}
-                    ></div>
-                  </div>
-                ))}
+                      key={index}
+                      className="flex flex-col items-center flex-1 h-full justify-end"
+                    >
+                      <span className="text-[10px] text-emerald-800 font-bold mb-1 z-20">
+                        ${data.price.toFixed(2)}
+                      </span>
+                      <div
+                        className="w-full max-w-[20px] bg-black/5 rounded-t-sm"
+                        // MUDANÇA AQUI: Trocamos * 100% por * 70%
+                        style={{ height: `${(data.price / maxPrice) * 70}%` }}
+                      ></div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* X-Axis Labels */}
-              <div className="flex justify-between w-full mt-2 gap-2">
+              <div className="flex justify-between w-full mt-2">
                 {historicalData.map((data, index) => (
                   <span
                     key={index}
@@ -135,13 +175,13 @@ const HomeView = () => {
         {/* Floating Action Button for Toggle */}
         <button
           onClick={() => setShowChart(!showChart)}
-          className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full flex items-center justify-center hover:bg-emerald-50 active:scale-95"
+          className="absolute bottom-1 left-1/2 -translate-x-1/2 !bg-transparent !border-none !shadow-none outline-none p-2 flex items-center justify-center hover:!bg-black/5 active:scale-95 transition-transform z-10"
           aria-label={showChart ? "Hide Chart" : "Show Chart"}
         >
           {showChart ? (
-            <Minus size={20} strokeWidth={3} />
+            <Minus size={24} strokeWidth={3} className="text-black" />
           ) : (
-            <Plus size={20} strokeWidth={3} />
+            <Plus size={24} strokeWidth={3} className="text-black" />
           )}
         </button>
       </Card>
@@ -159,7 +199,7 @@ const HomeView = () => {
         <div className="flex flex-col flex-1 p-3 justify-between">
           <p className="text-sm text-gray-600 leading-snug">
             Companies are buying heavily and for a good price this week. Good
-            opportunity to sell your surplus!
+            opportunity to sell!
           </p>
           <span className="text-[10px] font-medium text-gray-400 self-end mt-2">
             {getDynamicDate(0)}
